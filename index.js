@@ -34,14 +34,14 @@ async function run(){
              res.json(result);
             })
             // Get user
-            app.get("/user", async(req,res)=>{
+            app.get("/alluser", async(req,res)=>{
                 const cursor = userCollection.find({});
                 const result = await cursor.toArray();
                 res.json(result);
             })
             
         //  Post user
-        app.post("/alluser", async(req,res)=>{
+        app.post("/user", async(req,res)=>{
             const user = req.body;
             const result = await userCollection.insertOne(user);
             res.send(result);

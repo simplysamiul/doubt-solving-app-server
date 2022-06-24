@@ -8,7 +8,7 @@ const app = express();
 const cors = require("cors");
 const { json } = require("express");
 const { MongoClient, ServerApiVersion } = require('mongodb');
-
+const objectId = require("mongodb").ObjectId;
 const port = process.env.PORT || 5000;
 require('dotenv').config();
 
@@ -66,6 +66,14 @@ async function run(){
                 const doubt = req.body;
                 const result = await doubtCollection.insertOne(doubt);
                 res.send(result);
+            })
+            app.put("/alldoubt", async(req, res) =>{
+                const id = req.query.id;
+                const comment = req.body;
+                const filter = {_id : objectId(id)};
+                const updateDoc= {$push: {comments : comment}};
+                const result = await doubtCollection.updateOne(filter, updateDoc);
+                res.send(result)
             })
 
     }finally{

@@ -24,7 +24,8 @@ async function run(){
          // db and collection
          await client.connect();
          const database = client.db("doubtStore");
-         const userCollection = database.collection("user")
+         const userCollection = database.collection("user");
+         const doubtCollection = database.collection("allDoubt");
 
          // Get specific user by user
          app.get("/user", async(req,res)=>{
@@ -44,6 +45,12 @@ async function run(){
         app.post("/user", async(req,res)=>{
             const user = req.body;
             const result = await userCollection.insertOne(user);
+            res.send(result);
+        });
+        // post doubt
+        app.post("/alldoubt", async(req,res)=>{
+            const doubt = req.body;
+            const result = await doubtCollection.insertOne(doubt);
             res.send(result);
         })
 

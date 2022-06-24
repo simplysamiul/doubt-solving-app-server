@@ -40,19 +40,25 @@ async function run(){
                 const result = await cursor.toArray();
                 res.json(result);
             })
+            // get all doubt
+            app.get("/alldoubt", async(req,res) =>{
+                const cursor = doubtCollection.find({});
+                const result = await cursor.toArray();
+                res.json(result);
+            })
             
-        //  Post user
-        app.post("/user", async(req,res)=>{
-            const user = req.body;
-            const result = await userCollection.insertOne(user);
-            res.send(result);
-        });
-        // post doubt
-        app.post("/alldoubt", async(req,res)=>{
-            const doubt = req.body;
-            const result = await doubtCollection.insertOne(doubt);
-            res.send(result);
-        })
+            //  Post user
+            app.post("/user", async(req,res)=>{
+                const user = req.body;
+                const result = await userCollection.insertOne(user);
+                res.send(result);
+            });
+            // post doubt
+            app.post("/alldoubt", async(req,res)=>{
+                const doubt = req.body;
+                const result = await doubtCollection.insertOne(doubt);
+                res.send(result);
+            })
 
     }finally{
         // await client.close();

@@ -46,6 +46,14 @@ async function run(){
                 const result = await cursor.toArray();
                 res.json(result);
             })
+            // get apecific doubt by email
+            app.get("/yourdoubt", async(req,res)=>{
+                const email = req.query.email;
+                const query = {email};
+                const cursor = doubtCollection.find(query);
+                const result = await cursor.toArray();
+                res.json(result);
+            })
             
             //  Post user
             app.post("/user", async(req,res)=>{

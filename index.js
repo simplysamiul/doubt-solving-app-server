@@ -26,6 +26,7 @@ async function run(){
          const database = client.db("doubtStore");
          const userCollection = database.collection("user");
          const doubtCollection = database.collection("allDoubt");
+         const commentCollection = database.collection("comments");
 
          // Get specific user by user
          app.get("/user", async(req,res)=>{
@@ -67,13 +68,11 @@ async function run(){
                 const result = await doubtCollection.insertOne(doubt);
                 res.send(result);
             })
-            app.put("/alldoubt", async(req, res) =>{
-                const id = req.body.id;
+            // post studes comment
+            app.post("/studentcomment", async(req,res)=>{
                 const comment = req.body;
-                const filter = {_id : objectId(id)};
-                const updateDoc= {$push: {comments : comment}};
-                const result = await doubtCollection.updateOne(filter, updateDoc);
-                res.send(result)
+                const result = await commentCollection.insertOne(comment);
+                res.send(result);
             })
 
     }finally{

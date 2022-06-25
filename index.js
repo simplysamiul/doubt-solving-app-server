@@ -55,6 +55,14 @@ async function run(){
                 const result = await cursor.toArray();
                 res.json(result);
             })
+            // get specific student comment
+            app.get("/comment", async(req,res) =>{
+                const id = req.query.id;
+                const query = {postId : id};
+                const cursor = commentCollection.find(query);
+                const result = await cursor.toArray();
+                res.json(result);
+            })
             
             //  Post user
             app.post("/user", async(req,res)=>{

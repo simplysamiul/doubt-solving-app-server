@@ -68,7 +68,7 @@ async function run(){
                 res.send(result);
             })
             app.put("/alldoubt", async(req, res) =>{
-                const id = req.query.id;
+                const id = req.body.id;
                 const comment = req.body;
                 const filter = {_id : objectId(id)};
                 const updateDoc= {$push: {comments : comment}};

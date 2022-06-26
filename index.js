@@ -83,12 +83,12 @@ async function run(){
                 res.send(result);
             });
             // Post teacher answer
-            app.put("/git", async(req,res) => {
+            app.put("/unresolved", async(req,res) => {
                 const id = req.query.id;
                 const soluation = req.body;
                 const filter = {_id : objectId(id)};
                 const options = { upsert: true };
-                const updateDoc = {$push : soluation};
+                const updateDoc = {$set : soluation};
                 const result = await doubtCollection.updateOne(filter, updateDoc, options);
                 res.send(result);
             })

@@ -63,7 +63,14 @@ async function run(){
                 const result = await cursor.toArray();
                 res.json(result);
             });
-            
+            // get specific resolved
+            app.get("/resolved", async(req,res) =>{
+                const email = req.query.email;
+                const query = {teacher_email : email};
+                const cursor = doubtCollection.find(query);
+                const result = await cursor.toArray()
+                res.json(result);
+            })
             //  Post user
             app.post("/user", async(req,res)=>{
                 const user = req.body;

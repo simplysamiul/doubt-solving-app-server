@@ -34,19 +34,19 @@ async function run(){
              const query = {email};
              const result = await userCollection.findOne(query);
              res.json(result);
-            })
+            });
             // Get user
             app.get("/alluser", async(req,res)=>{
                 const cursor = userCollection.find({});
                 const result = await cursor.toArray();
                 res.json(result);
-            })
+            });
             // get all doubt
             app.get("/alldoubt", async(req,res) =>{
                 const cursor = doubtCollection.find({});
                 const result = await cursor.toArray();
                 res.json(result);
-            })
+            });
             // get apecific doubt by email
             app.get("/yourdoubt", async(req,res)=>{
                 const email = req.query.email;
@@ -54,7 +54,7 @@ async function run(){
                 const cursor = doubtCollection.find(query);
                 const result = await cursor.toArray();
                 res.json(result);
-            })
+            });
             // get specific student comment
             app.get("/comment", async(req,res) =>{
                 const id = req.query.id;
@@ -62,7 +62,7 @@ async function run(){
                 const cursor = commentCollection.find(query);
                 const result = await cursor.toArray();
                 res.json(result);
-            })
+            });
             
             //  Post user
             app.post("/user", async(req,res)=>{
@@ -75,11 +75,21 @@ async function run(){
                 const doubt = req.body;
                 const result = await doubtCollection.insertOne(doubt);
                 res.send(result);
-            })
+            });
             // post studes comment
             app.post("/studentcomment", async(req,res)=>{
                 const comment = req.body;
                 const result = await commentCollection.insertOne(comment);
+                res.send(result);
+            });
+            // Post teacher answer
+            app.put("/git", async(req,res) => {
+                const id = req.query.id;
+                const soluation = req.body;
+                const filter = {_id : objectId(id)};
+                const options = { upsert: true };
+                const updateDoc = {$push : soluation};
+                const result = await doubtCollection.updateOne(filter, updateDoc, options);
                 res.send(result);
             })
 
